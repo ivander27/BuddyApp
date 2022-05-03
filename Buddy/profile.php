@@ -55,3 +55,11 @@ if(isset($_POST['post_message'])) {
 }
 
  ?>
+ 
+  	<style type="text/css">
+	 	.wrapper {
+	 		margin-left: 0px;
+			padding-left: 0px;
+	 	}
+
+ 	</style>
