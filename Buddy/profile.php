@@ -63,3 +63,83 @@ if(isset($_POST['post_message'])) {
 	 	}
 
  	</style>
+	
+ 	<div class="profile_left">
+
+    <!-- Profile kiri -- profile pic section -->
+
+ 		<img src="<?php echo $user_array['profile_pic']; ?>">
+
+    <!-- Display info user di bagian profile kiri -->
+
+ 		<div class="profile_info">
+
+ 			<p><?php echo "Posts: " . $user_array['num_posts']; ?></p>
+ 			<p><?php echo "Likes: " . $user_array['num_likes']; ?></p>
+ 			<p><?php echo "Friends: " . $num_friends ?></p>
+
+ 		</div>
+
+    <!-- redirect ke user_closed.php kalau user di closed -->
+
+ 		<form action="<?php echo $username; ?>" method="POST">
+
+ 			<?php 
+
+ 			$profile_user_obj = new User($con, $username); 
+
+ 			if($profile_user_obj->isClosed()) {
+
+ 				header("Location: user_closed.php");
+ 			}
+
+ 			$logged_in_user_obj = new User($con, $userLoggedIn); 
+
+ 			if($userLoggedIn != $username) {
+
+ 				if($logged_in_user_obj->isFriend($username)) {
+
+ 					echo '<input type="submit" name="remove_friend" class="danger" value="Remove Friend"><br>';
+ 				}
+ 				else if ($logged_in_user_obj->didReceiveRequest($username)) {
+
+ 					echo '<input type="submit" name="respond_request" class="warning" value="Respond to Request"><br>';
+ 				}
+ 				else if ($logged_in_user_obj->didSendRequest($username)) {
+
+ 					echo '<input type="submit" name="" class="default" value="Request Sent"><br>';
+ 				}
+ 				else 
+
+ 					echo '<input type="submit" name="add_friend" class="success" value="Add Friend"><br>';
+
+ 			}
+
+ 			?>
+ 		</form>
+
+    <!-- Post di profile yang kek twitter -->
+
+ 		<input type="submit" class="blue" data-toggle="modal" data-target="#post_form" value="Post Something">
+
+    <!-- Display profile info -->
+
+    <?php  
+
+    // Display jumlah Mutual Friends 
+
+    if($userLoggedIn != $username) {
+
+      echo '<div class="profile_info_bottom">';
+
+        echo $logged_in_user_obj->getMutualFriends($username) . " Mutual Friends";
+
+      echo '</div>';
+    }
+
+
+    ?>
+
+ 	</div>
+	
+	
