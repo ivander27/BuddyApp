@@ -24,7 +24,7 @@ include("includes/header.php");
 			$user_from = $row['user_from']; // dapet request dari siapa 
 			$user_from_obj = new User($con, $user_from);
 
-			echo $user_from_obj->getFirstAndLastName() . " sent you a friend request!"; -> // show siapa yang req friend 
+			echo $user_from_obj->getFirstAndLastName() . " sent you a friend request!";// show siapa yang req friend 
 
 			$user_from_friend_array = $user_from_obj->getFriendArray();
 
