@@ -20,9 +20,6 @@ if(isset($_POST['update_details'])) {
 else 
 	$message = "";
 
-
-//**************************************************
-
 if(isset($_POST['update_password'])) {
 
 	$old_password = strip_tags($_POST['old_password']);
@@ -33,7 +30,7 @@ if(isset($_POST['update_password'])) {
 	$row = mysqli_fetch_array($password_query);
 	$db_password = $row['password'];
 
-	if(md5($old_password) == $db_password) {//md5 buat encrypt password
+	if(md5($old_password) == $db_password) {
 
 		if($new_password_1 == $new_password_2) {
 

@@ -9,8 +9,7 @@ class Message {
 		$this->user_obj = new User($con, $user);
 	}
 
-	// Get Most Recent User
-
+	
 	public function getMostRecentUser() {
 
 		$userLoggedIn = $this->user_obj->getUsername();
@@ -31,8 +30,6 @@ class Message {
 
 	}
 
-	// Send Messages
-
 	public function sendMessage($user_to, $body, $date) {
 
 		if($body != "") {
@@ -40,8 +37,6 @@ class Message {
 			$query = mysqli_query($this->con, "INSERT INTO messages VALUES('', '$user_to', '$userLoggedIn', '$body', '$date', 'no', 'no', 'no')");
 		}
 	}
-
-	// Get Messages
 
 	public function getMessages($otherUser) {
 

@@ -8,37 +8,37 @@ class Post {
 		$this->user_obj = new User($con, $user);
 	}
 
-	// To submit the post which was posted in index page
+	
 
 	public function submitPost($body, $user_to) {
 
-		$body = strip_tags($body); // Removes html tags 
-		$body = mysqli_real_escape_string($this->con, $body); // Which escapes special characters in the body
-		$check_empty = preg_replace('/\s+/', '', $body); // Deletes all spaces 
+		$body = strip_tags($body); 
+		$body = mysqli_real_escape_string($this->con, $body); 
+		$check_empty = preg_replace('/\s+/', '', $body); 
       
 		if($check_empty != "") {
 
 
-			// Current date and time
+			
 
 			$date_added = date("Y-m-d H:i:s");
 
-			// Get username
+			
 
 			$added_by = $this->user_obj->getUsername();
 
-			// If user is on own profile, user_to is 'none'
+			
 
 			if($user_to == $added_by)
 				$user_to = "none";
 
-			// Insert post 
+			
 
 			$query = mysqli_query($this->con, "INSERT INTO posts VALUES('', '$body', '$added_by', '$user_to', '$date_added', 'no', 'no', '0')");
 
-			$returned_id = mysqli_insert_id($this->con); // which returns the id of post
+			$returned_id = mysqli_insert_id($this->con); 
 
-			// Update post count for user 
+			
 
 			$num_posts = $this->user_obj->getNumPosts();
 			$num_posts++;
@@ -51,7 +51,7 @@ class Post {
 	}
 
 	
-	// To load posts in index page
+	
 
 	public function loadPostsFriends($data, $limit) {
 
@@ -65,14 +65,14 @@ class Post {
 			$start = ($page - 1) * $limit;
 
 
-		$str = ""; // String to return 
+		$str = ""; 
 
 		$data_query = mysqli_query($this->con, "SELECT * FROM posts WHERE deleted='no' ORDER BY id DESC");
 
 		if(mysqli_num_rows($data_query) > 0) {
 
 
-			$num_iterations = 0; // Number of results checked 
+			$num_iterations = 0; 
 			$count = 1;
 
 			while($row = mysqli_fetch_array($data_query)) {
@@ -81,7 +81,7 @@ class Post {
 				$added_by = $row['added_by'];
 				$date_time = $row['date_added'];
 
-				// Prepare user_to string so it can be included even if not posted to a user
+				
 
 				if($row['user_to'] == "none") {
 					$user_to = "";
@@ -92,7 +92,7 @@ class Post {
 					$user_to = "to <a href='" . $row['user_to'] ."'>" . $user_to_name . "</a>";
 				}
 
-				// Check if user who posted, has their account closed
+				
 
 				$added_by_obj = new User($this->con, $added_by);
 				if($added_by_obj->isClosed()) {
@@ -100,13 +100,13 @@ class Post {
 				}
 
 				$user_logged_obj = new User($this->con, $userLoggedIn);
-				if($user_logged_obj->isFriend($added_by)){ // Checks whether added_by is friend of userLOGGEDin or not
+				if($user_logged_obj->isFriend($added_by)){ 
 
 					if($num_iterations++ < $start)
 						continue; 
 
 
-					// Once 10 posts have been loaded, break
+					
 
 					if($count > $limit) {
 						break;
@@ -114,15 +114,7 @@ class Post {
 					else {
 						$count++;
 					}
-
-					// Display's delete button when userLoggedIn equals to added_by
-
-					//if($userLoggedIn == $added_by)
-						//$delete_button = "<button class='delete_button btn-danger' id='post$id'>Delete</button>";
-					//else 
-						//$delete_button = "";
-
-					// Query to get added_by user's firstname lastname and profile pic
+				
 
 					$user_details_query = mysqli_query($this->con, "SELECT first_name, last_name, profile_pic FROM users WHERE username='$added_by'");
 
@@ -132,19 +124,19 @@ class Post {
 					$last_name = $user_row['last_name'];
 					$profile_pic = $user_row['profile_pic'];
 
-					// Timeframe
+					
 
 					$date_time_now = date("Y-m-d H:i:s");
-					$start_date = new DateTime($date_time); // Time of post
-					$end_date = new DateTime($date_time_now); // Current time
-					$interval = $start_date->diff($end_date); // Difference between dates 
+					$start_date = new DateTime($date_time); 
+					$end_date = new DateTime($date_time_now); 
+					$interval = $start_date->diff($end_date); 
 
 					if($interval->y >= 1) {
 
 						if($interval == 1)
-							$time_message = $interval->y . " year ago"; // 1 year ago
+							$time_message = $interval->y . " year ago"; 
 						else 
-							$time_message = $interval->y . " year's ago"; // 1+ year ago
+							$time_message = $interval->y . " year's ago"; 
 					}
 					else if ($interval->m >= 1) {
 
@@ -284,13 +276,13 @@ class Post {
 			$start = ($page - 1) * $limit;
 
 
-		$str = ""; //String to return 
+		$str = ""; 
 		$data_query = mysqli_query($this->con, "SELECT * FROM posts WHERE deleted='no' AND ((added_by='$profileUser' AND user_to='none') OR user_to='$profileUser')  ORDER BY id DESC");
 
 		if(mysqli_num_rows($data_query) > 0) {
 
 
-			$num_iterations = 0; // Number of results checked (not necasserily posted)
+			$num_iterations = 0; 
 			$count = 1;
 
 			while($row = mysqli_fetch_array($data_query)) {
@@ -304,21 +296,14 @@ class Post {
 						continue; 
 
 
-					// Once 10 posts have been loaded, break
+					
 					if($count > $limit) {
 						break;
 					}
 					else {
 						$count++;
 					}
-
-					//if($userLoggedIn == $added_by)
-
-						//$delete_button = "<button class='delete_button btn-danger' id='post$id'>Delete</button>";
-					//else 
-						//$delete_button = "";
-
-
+					
 					$user_details_query = mysqli_query($this->con, "SELECT first_name, last_name, profile_pic FROM users WHERE username='$added_by'");
 					$user_row = mysqli_fetch_array($user_details_query);
 					$first_name = $user_row['first_name'];
@@ -328,16 +313,16 @@ class Post {
 
 
 
-					//Timeframe
+					
 					$date_time_now = date("Y-m-d H:i:s");
-					$start_date = new DateTime($date_time); //Time of post
-					$end_date = new DateTime($date_time_now); //Current time
-					$interval = $start_date->diff($end_date); //Difference between dates 
+					$start_date = new DateTime($date_time); 
+					$end_date = new DateTime($date_time_now); 
+					$interval = $start_date->diff($end_date); 
 					if($interval->y >= 1) {
 						if($interval == 1)
-							$time_message = $interval->y . " year ago"; //1 year ago
+							$time_message = $interval->y . " year ago"; 
 						else 
-							$time_message = $interval->y . " years ago"; //1+ year ago
+							$time_message = $interval->y . " years ago"; 
 					}
 					else if ($interval->m >= 1) {
 						if($interval->d == 0) {
