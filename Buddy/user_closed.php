@@ -4,7 +4,7 @@ include("includes/header.php");
 
 ?>
 
-<!-- Handle's profile_page when user is closed -->
+
 
 <div class="main_column column" id="main_column">
 

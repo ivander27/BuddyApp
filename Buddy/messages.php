@@ -63,11 +63,9 @@ interface Subject{
   }
  }
  
-include("includes/header.php"); // To include header.php file
+include("includes/header.php"); 
 
-$message_obj = new Message($con, $userLoggedIn); // Create's object for Message
-
-// To get Recent or username messages or new message 
+$message_obj = new Message($con, $userLoggedIn); 
 
 if(isset($_GET['u']))
 	$user_to = $_GET['u'];
