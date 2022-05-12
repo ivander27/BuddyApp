@@ -1,8 +1,7 @@
 <?php 
-include("includes/header.php"); // To include header.php file
+include("includes/header.php"); 
 
-
-if(isset($_POST['post'])){ // Creates instance of Post class when post button is triggered
+if(isset($_POST['post'])){ 
 	$post = new Post($con, $userLoggedIn);
 	$post->submitPost($_POST['post_text'], 'none');
 }
@@ -76,11 +75,11 @@ if(isset($_POST['post'])){ // Creates instance of Post class when post button is
 
 		$('#loading').show();
 
-		//Original ajax request for loading first posts 
+		
 		$.ajax({
-			url: "includes/handlers/ajax_load_posts.php", // url
+			url: "includes/handlers/ajax_load_posts.php", 
 			type: "POST",
-			data: "page=1&userLoggedIn=" + userLoggedIn, // request
+			data: "page=1&userLoggedIn=" + userLoggedIn, 
 			cache:false,
 
 			success: function(data) {
@@ -90,7 +89,7 @@ if(isset($_POST['post'])){ // Creates instance of Post class when post button is
 		});
 
 		$(window).scroll(function() {
-			var height = $('.posts_area').height(); //Div containing posts
+			var height = $('.posts_area').height(); 
 			var scroll_top = $(this).scrollTop();
 			var page = $('.posts_area').find('.nextPage').val();
 			var noMorePosts = $('.posts_area').find('.noMorePosts').val();
@@ -105,8 +104,8 @@ if(isset($_POST['post'])){ // Creates instance of Post class when post button is
 					cache:false,
 
 					success: function(response) {
-						$('.posts_area').find('.nextPage').remove(); //Removes current .nextpage 
-						$('.posts_area').find('.noMorePosts').remove(); //Removes current .nextpage 
+						$('.posts_area').find('.nextPage').remove(); 
+						$('.posts_area').find('.noMorePosts').remove(); 
 
 						$('#loading').hide();
 						$('.posts_area').append(response);
