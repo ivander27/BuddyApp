@@ -222,7 +222,7 @@ class Post {
 
 				?>
 
-				<!-- Triggers when delete post is pressed using post_id -->
+				
 
 
 
@@ -251,7 +251,7 @@ class Post {
 
 				<?php
 
-			} // End while loop
+			} 
 
 			if($count > $limit) 
 				$str .= "<input type='hidden' class='nextPage' value='" . ($page + 1) . "'>
@@ -427,7 +427,7 @@ class Post {
 				</script> -->
 				<?php
 
-			} //End while loop
+			} 
 
 			if($count > $limit) 
 				$str .= "<input type='hidden' class='nextPage' value='" . ($page + 1) . "'>
