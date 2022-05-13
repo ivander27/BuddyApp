@@ -70,14 +70,14 @@ class Message {
 
 		// Timeframe
 		$date_time_now = date("Y-m-d H:i:s");
-		$start_date = new DateTime($row['date']); //Time of post
-		$end_date = new DateTime($date_time_now); //Current time
-		$interval = $start_date->diff($end_date); //Difference between dates 
+		$start_date = new DateTime($row['date']); 
+		$end_date = new DateTime($date_time_now); 
+		$interval = $start_date->diff($end_date); 
 		if($interval->y >= 1) {
 			if($interval == 1)
-				$time_message = $interval->y . " year ago"; //1 year ago
+				$time_message = $interval->y . " year ago"; 
 			else 
-				$time_message = $interval->y . " years ago"; //1+ year ago
+				$time_message = $interval->y . " years ago"; 
 		}
 		else if ($interval->m >= 1) {
 			if($interval->d == 0) {
