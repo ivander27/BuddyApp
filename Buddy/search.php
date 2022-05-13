@@ -37,7 +37,7 @@ else {
 				$usersReturnedQuery = mysqli_query($con, "SELECT * FROM users WHERE (first_name LIKE '$names[0]%' OR last_name LIKE '$names[0]%') AND user_closed='no'");
 		}
 
-		//Check if results were found 
+		 
 		if(mysqli_num_rows($usersReturnedQuery) == 0)
 			echo "We can't find anyone with a " . $type . " like: " .$query;
 		else 
@@ -55,7 +55,7 @@ else {
 
 			if($user['username'] != $row['username']) {
 
-				//Generate button depending on friendship status 
+				 
 				if($user_obj->isFriend($row['username']))
 					$button = "<input type='submit' name='" . $row['username'] . "' class='danger' value='Remove Friend'>";
 				else if($user_obj->didReceiveRequest($row['username']))
@@ -68,7 +68,7 @@ else {
 				$mutual_friends = $user_obj->getMutualFriends($row['username']) . " friends in common";
 
 
-				//Button forms
+				
 				if(isset($_POST[$row['username']])) {
 
 					if($user_obj->isFriend($row['username'])) {
