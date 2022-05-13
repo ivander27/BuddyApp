@@ -8,7 +8,7 @@ $result_path = "";
 $msg = "";
 
 	if (!isset($_POST['x']) && !isset($_FILES['image']['name']) ){
-		//Delete users temp image
+		
 			$temppath = 'assets/images/profile_pics/'.$profile_id.'_temp.jpeg';
 			if (file_exists ($temppath)){ @unlink($temppath); }
 	} 
@@ -21,7 +21,7 @@ if(isset($_FILES['image']['name'])){
 		$ImageTempName = $_FILES['image']['tmp_name'];
 	
 		$ImageType = @explode('/', $_FILES['image']['type']);
-		$type = $ImageType[1]; //file type	
+		$type = $ImageType[1]; 
 	  
 		$uploaddir = $_SERVER['DOCUMENT_ROOT'].'/demo/assets/images/profile_pics';
 	
@@ -125,9 +125,9 @@ if (isset($_POST['x'])){
 		
 	}
 		
-			imagedestroy($img_r); // free up memory
-			imagedestroy($dst_r); //free up memory
-			@ unlink($src); // delete the original upload					
+			imagedestroy($img_r); 
+			imagedestroy($dst_r); 
+			@ unlink($src); 
 		
 		
 		$result_path ="assets/images/profile_pics/".$finalname."n.jpeg";
@@ -186,7 +186,7 @@ if (isset($_POST['x'])){
 	                <input type="hidden" id="y" name="y" />
 	                <input type="hidden" id="w" name="w" />
 	                <input type="hidden" id="h" name="h" />
-	                <input type="hidden" value="jpeg" name="type" /> <?php // $type ?> 
+	                <input type="hidden" value="jpeg" name="type" /> <?php  ?> 
 	                <input type="hidden" value="<?=$src?>" name="src" />
 	                <input type="submit" value="Save" style="width:100px; height:30px;"   />
 	            </form>
@@ -198,7 +198,7 @@ if (isset($_POST['x'])){
 	            </form>
 	        </div>            
 	            
-	    </div><!-- CroppingContainer -->
+	    </div>
 	<?php 
 	} ?>
 </div>
